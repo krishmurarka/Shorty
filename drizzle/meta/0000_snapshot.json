@@ -12,8 +12,7 @@
           "name": "id",
           "type": "bigint",
           "primaryKey": true,
-          "notNull": true,
-          "default": "nextval('link_id_seq'::regclass)"
+          "notNull": true
         },
         "code": {
           "name": "code",

@@ -1,4 +1,3 @@
-import { sql } from "drizzle-orm";
 import { bigint, boolean, pgSequence, pgTable, text, timestamp, varchar } from "drizzle-orm/pg-core";
 
 export const linkIdSequence = pgSequence("link_id_seq", {
@@ -8,9 +7,7 @@ export const linkIdSequence = pgSequence("link_id_seq", {
 });
 
 export const links = pgTable("links", {
-  id: bigint("id", { mode: "bigint" })
-    .primaryKey()
-    .default(sql`nextval('link_id_seq'::regclass)`),
+  id: bigint("id", { mode: "bigint" }).primaryKey(),
   code: varchar("code", { length: 11 }).notNull().unique(),
   destination: text("destination").notNull(),
   disabled: boolean("disabled").notNull().default(false),
