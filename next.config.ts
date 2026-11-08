@@ -1,7 +1,8 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  // Keep browser tests separate from an already-running local dev server.
+  distDir: process.env.SHORTY_TEST_BUILD ? ".next-e2e" : ".next",
   cacheComponents: true,
   partialPrefetching: true,
   turbopack: {

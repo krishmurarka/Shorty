@@ -10,10 +10,12 @@
     "typecheck": "next typegen && tsc --noEmit",
     "test": "tsx --test src/lib/*.test.ts",
     "db:generate": "drizzle-kit generate",
-    "db:migrate": "drizzle-kit migrate",
-    "db:studio": "drizzle-kit studio"
+    "db:migrate": "drizzle-kit migrate && node -e \"console.log('Database migrations completed successfully.')\"",
+    "db:studio": "drizzle-kit studio",
+    "test:e2e": "playwright test"
   },
   "dependencies": {
+    "@neon/auth": "^0.8.2",
     "@neondatabase/serverless": "^1.2.0",
     "@upstash/redis": "^1.41.0",
     "drizzle-orm": "^0.45.4",
@@ -23,6 +25,7 @@
     "server-only": "^0.0.1"
   },
   "devDependencies": {
+    "@playwright/test": "^1.65.0",
     "@tailwindcss/turbopack": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
