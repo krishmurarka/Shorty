@@ -57,3 +57,29 @@ npm run build
 ```
 
 See docs/SETUP.md for commands used to initialize the project.
+
+## Google login and guest access
+
+New visitors see a Google sign-in dialog with Continue as guest underneath.
+Guest choice is a session cookie and never grants access to /account.
+Google users can view their account, reload with their session, and sign out.
+
+Configure NEON_AUTH_BASE_URL from the matching Neon branch and a random
+NEON_AUTH_COOKIE_SECRET of at least 32 characters in .env.local.
+The local values are configured; deployment environments need their own settings.
+Generate a secret without printing it into a shared log.
+Enable Google in Neon Auth and allow the exact app origins under trusted domains.
+Neon shared Google credentials are for development; configure your own Google
+OAuth credentials before public production use. Do not commit .env.local.
+
+The OAuth return URL is /auth/callback. Neon middleware exchanges the verifier
+and establishes HTTP-only session cookies before the route checks identity.
+Authentication APIs are limited to Google sign-in, session checks, and sign-out.
+No duplicate user table or database migration is needed for this flow.
+Link creation, guest link claiming, and ownership are separate future features.
+
+Run npm run test:e2e for the browser suite. It uses an isolated auth fixture
+on port 3201 and the app on port 3100, with a separate .next-e2e build directory.
+It does not create Neon accounts or contact Google. On Windows it uses installed
+Chrome; on Linux install Chromium with npx playwright install --with-deps chromium.
+The actual Google account-consent step should also be checked manually.
